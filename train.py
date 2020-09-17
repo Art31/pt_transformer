@@ -110,8 +110,8 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
         # Execute a single training step: forward
         optimizer.zero_grad()
         import ipdb; ipdb.set_trace()
-        dec_logits, _, _, _ = model(enc_inputs, enc_inputs_len,
-                                    dec_inputs, dec_inputs_len)
+        dec_logits, _, _, _ = model(enc_inputs.cuda(), enc_inputs_len.cuda(),
+                                    dec_inputs.cuda(), dec_inputs_len.cuda())
         step_loss = criterion(dec_logits, dec_targets.contiguous().view(-1))
 
         # Execute a single training step: backward
