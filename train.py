@@ -103,15 +103,17 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
     for batch_idx, batch in enumerate(train_iter):
         enc_inputs, enc_inputs_len = batch.src
         dec_, dec_inputs_len = batch.trg
-        dec_inputs = dec_[:, :-1]
+        dec_inputs = dec_[:, :-1].cuda()
         dec_targets = dec_[:, 1:]
-        dec_inputs_len = dec_inputs_len - 1
+        dec_inputs_len = dec_inputs_len.cuda() - 1
+        enc_inputs = enc_inputs.cuda()
+        enc_inputs_len = enc_inputs_len.cuda()
 
         # Execute a single training step: forward
         optimizer.zero_grad()
         import ipdb; ipdb.set_trace()
-        dec_logits, _, _, _ = model(enc_inputs.cuda(), enc_inputs_len.cuda(),
-                                    dec_inputs.cuda(), dec_inputs_len.cuda())
+        dec_logits, _, _, _ = model(enc_inputs, enc_inputs_len,
+                                    dec_inputs, dec_inputs_len)
         step_loss = criterion(dec_logits, dec_targets.contiguous().view(-1))
 
         # Execute a single training step: backward
