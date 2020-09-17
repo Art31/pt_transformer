@@ -35,7 +35,7 @@ class _MultiHeadAttention(nn.Module):
         k_s = self.w_k(k).view(b_size, -1, self.n_heads, self.d_k).transpose(1, 2)
         v_s = self.w_v(v).view(b_size, -1, self.n_heads, self.d_v).transpose(1, 2)
 
-        import ipdb; ipdb.set_trace()
+        # import ipdb; ipdb.set_trace()
         if attn_mask != None:  # attn_mask: [b_size x len_q x len_k]
             attn_mask = attn_mask.unsqueeze(1).repeat(1, self.n_heads, 1, 1)
         # context: [b_size x n_heads x len_q x d_v], attn: [b_size x n_heads x len_q x len_k]
