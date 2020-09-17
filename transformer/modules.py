@@ -10,7 +10,7 @@ class Linear(nn.Module):
         super(Linear, self).__init__()
         self.linear = nn.Linear(in_features, out_features, bias=bias)
         init.xavier_normal_(self.linear.weight)
-        init.zeros_(self.linear.bias)
+        # init.zeros_(self.linear.bias)
 
     def forward(self, inputs):
         return self.linear(inputs)
