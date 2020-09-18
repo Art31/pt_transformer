@@ -120,7 +120,7 @@ class Translator(object):
                 new_size = (inst_idx_dim_size, *rest_dim_sizes)
 
                 # select the active instances in batch
-                original_seq_data = seq_var.data.view(n_remaining_sents, -1)
+                original_seq_data = seq_var.data.view(n_remaining_sents, -1).cuda()
                 import ipdb; ipdb.set_trace()
                 active_seq_data = torch.index_select(original_seq_data, 0, active_inst_idxs)
                 active_seq_data = active_seq_data.view(*new_size)
