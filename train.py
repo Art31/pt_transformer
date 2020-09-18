@@ -104,7 +104,7 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
         enc_inputs, enc_inputs_len = batch.src
         dec_, dec_inputs_len = batch.trg
         dec_inputs = dec_[:, :-1].cuda()
-        dec_targets = dec_[:, 1:]
+        dec_targets = dec_[:, 1:].cuda()
         dec_inputs_len = dec_inputs_len.cuda() - 1
         enc_inputs = enc_inputs.cuda()
         enc_inputs_len = enc_inputs_len.cuda()
