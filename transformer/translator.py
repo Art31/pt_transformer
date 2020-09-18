@@ -141,7 +141,8 @@ class Translator(object):
                 active_enc_info_data = original_enc_info_data.index_select(0, active_inst_idxs)
                 active_enc_info_data = active_enc_info_data.view(*new_size)
 
-                return Variable(active_enc_info_data, volatile=True)
+                with torch.no_grad():
+                    return Variable(active_enc_info_data)
 
             enc_inputs = update_active_seq(enc_inputs, active_inst_idxs)
             enc_outputs = update_active_enc_info(enc_outputs, active_inst_idxs)
