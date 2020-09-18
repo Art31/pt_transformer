@@ -121,7 +121,6 @@ class Translator(object):
 
                 # select the active instances in batch
                 original_seq_data = seq_var.data.view(n_remaining_sents, -1).cuda()
-                import ipdb; ipdb.set_trace()
                 active_seq_data = torch.index_select(original_seq_data, 0, active_inst_idxs)
                 active_seq_data = active_seq_data.view(*new_size)
 
@@ -129,7 +128,6 @@ class Translator(object):
 
             def update_active_enc_info(enc_info_var, active_inst_idxs):
                 ''' Remove the encoder outputs of finished instances in one batch. '''
-                import ipdb; ipdb.set_trace()
                 inst_idx_dim_size, *rest_dim_sizes = enc_info_var.size()
                 inst_idx_dim_size = inst_idx_dim_size * len(active_inst_idxs) // n_remaining_sents
                 new_size = (inst_idx_dim_size, *rest_dim_sizes)
