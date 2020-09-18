@@ -60,6 +60,7 @@ class Translator(object):
             len_dec_seq = i + 1
             # Preparing decoded data_seq
             # size: [batch_size x beam_size x seq_len]
+            import ipdb; ipdb.set_trace()
             dec_partial_inputs = torch.stack([
                 b.get_current_state() for b in beams if not b.done])
             # size: [batch_size * beam_size x seq_len]
