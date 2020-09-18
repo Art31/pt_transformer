@@ -56,7 +56,7 @@ class Beam(object):
 
         # bestScoresId is flattened beam_size * tgt_vocab_size array, so calculate
         # which word and beam each score came from
-        prev_k = best_scores_id / num_words
+        prev_k = best_scores_id // num_words
         self.prev_ks.append(prev_k)
         self.next_ys.append(best_scores_id - prev_k * num_words)
 
