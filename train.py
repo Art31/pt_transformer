@@ -123,7 +123,6 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
         optimizer.update_lr()
         model.proj_grad()  # works only for weighted transformer
 
-        # import ipdb; ipdb.set_trace()
         train_loss_total += float(step_loss.item())
         n_words_total += torch.sum(dec_inputs_len)
         n_sents_total += dec_inputs_len.size(0)  # batch_size
