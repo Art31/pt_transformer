@@ -111,7 +111,6 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
 
         # Execute a single training step: forward
         optimizer.zero_grad()
-        import ipdb; ipdb.set_trace()
         dec_logits, _, _, _ = model(enc_inputs, enc_inputs_len,
                                     dec_inputs, dec_inputs_len)
         step_loss = criterion(dec_logits, dec_targets.contiguous().view(-1))
@@ -124,7 +123,8 @@ def train(model, criterion, optimizer, train_iter, model_state):  # TODO: fix op
         optimizer.update_lr()
         model.proj_grad()  # works only for weighted transformer
 
-        train_loss_total += float(step_loss.data[0])
+        import ipdb; ipdb.set_trace()
+        train_loss_total += float(step_loss.item())
         n_words_total += torch.sum(dec_inputs_len)
         n_sents_total += dec_inputs_len.size(0)  # batch_size
         model_state['train_steps'] += 1
