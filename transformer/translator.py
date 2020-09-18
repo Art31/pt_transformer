@@ -66,7 +66,8 @@ class Translator(object):
             # size: [batch_size * beam_size x seq_len]
             dec_partial_inputs = dec_partial_inputs.view(-1, len_dec_seq)
             # wrap into a Variable
-            dec_partial_inputs = Variable(dec_partial_inputs, volatile=True)
+            with torch.no_grad():
+                dec_partial_inputs = Variable(dec_partial_inputs)
 
             # Preparing decoded pos_seq
             # size: [1 x seq]
@@ -125,7 +126,8 @@ class Translator(object):
                 active_seq_data = torch.index_select(original_seq_data, 0, active_inst_idxs)
                 active_seq_data = active_seq_data.view(*new_size)
 
-                return Variable(active_seq_data, volatile=True)
+                with torch.no_grad():
+                    return Variable(active_seq_data)
 
             def update_active_enc_info(enc_info_var, active_inst_idxs):
                 ''' Remove the encoder outputs of finished instances in one batch. '''
