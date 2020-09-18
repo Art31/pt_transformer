@@ -13,6 +13,7 @@ from data.data_utils import convert_text2idx
 def main(opt):
     train_src, train_tgt = read_parallel_corpus(opt.train_src, opt.train_tgt, opt.max_len, opt.lower_case)
     dev_src, dev_tgt = read_parallel_corpus(opt.dev_src, opt.dev_tgt, None, opt.lower_case)
+    import ipdb; ipdb.set_trace()
 
     if opt.vocab:
         src_counter, src_word2idx, src_idx2word, = torch.load(opt.vocab)['src_dict']
