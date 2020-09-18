@@ -82,19 +82,19 @@ class Decoder(nn.Module):
             [self.layer_type(d_k, d_v, d_model, d_ff, n_heads, dropout) for _ in range(n_layers)])
 
     def forward(self, dec_inputs, dec_inputs_len, enc_inputs, enc_outputs, return_attn=False):
-        dec_outputs = self.tgt_emb(dec_inputs)
-        dec_outputs += self.pos_emb(dec_inputs_len) # Adding positional encoding # TODO: note
+        dec_outputs = self.tgt_emb(dec_inputs.cuda())
+        dec_outputs += self.pos_emb(dec_inputs_len.cuda()) # Adding positional encoding # TODO: note
         dec_outputs = self.dropout_emb(dec_outputs)
 
         dec_self_attn_pad_mask = get_attn_pad_mask(dec_inputs, dec_inputs)
         dec_self_attn_subsequent_mask = get_attn_subsequent_mask(dec_inputs)
 
         dec_self_attn_mask = torch.gt((dec_self_attn_pad_mask + dec_self_attn_subsequent_mask), 0)
-        dec_enc_attn_pad_mask = get_attn_pad_mask(dec_inputs, enc_inputs)
+        dec_enc_attn_pad_mask = get_attn_pad_mask(dec_inputs, enc_inputs.cuda())
 
         dec_self_attns, dec_enc_attns = [], []
         for layer in self.layers:
-            dec_outputs, dec_self_attn, dec_enc_attn = layer(dec_outputs, enc_outputs,
+            dec_outputs, dec_self_attn, dec_enc_attn = layer(dec_outputs, enc_outputs.cuda(),
                                                              self_attn_mask=dec_self_attn_mask,
                                                              enc_attn_mask=dec_enc_attn_pad_mask)
             if return_attn:
