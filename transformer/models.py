@@ -54,8 +54,9 @@ class Encoder(nn.Module):
             [self.layer_type(d_k, d_v, d_model, d_ff, n_heads, dropout) for _ in range(n_layers)])
 
     def forward(self, enc_inputs, enc_inputs_len, return_attn=False):
-        enc_outputs = self.src_emb(enc_inputs)
-        enc_outputs += self.pos_emb(enc_inputs_len) # Adding positional encoding TODO: note
+        import ipdb; ipdb.set_trace()
+        enc_outputs = self.src_emb(enc_inputs.cuda())
+        enc_outputs += self.pos_emb(enc_inputs_len.cuda()) # Adding positional encoding TODO: note
         enc_outputs = self.dropout_emb(enc_outputs)
 
         enc_self_attn_mask = get_attn_pad_mask(enc_inputs, enc_inputs)
