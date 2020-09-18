@@ -128,7 +128,7 @@ class Translator(object):
 
             def update_active_enc_info(enc_info_var, active_inst_idxs):
                 ''' Remove the encoder outputs of finished instances in one batch. '''
-
+                import ipdb; ipdb.set_trace()
                 inst_idx_dim_size, *rest_dim_sizes = enc_info_var.size()
                 inst_idx_dim_size = inst_idx_dim_size * len(active_inst_idxs) // n_remaining_sents
                 new_size = (inst_idx_dim_size, *rest_dim_sizes)
