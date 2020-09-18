@@ -169,7 +169,7 @@ def eval(model, criterion, dev_iter):
 
             dec_logits, *_ = model(enc_inputs, enc_inputs_len, dec_inputs, dec_inputs_len)
             step_loss = criterion(dec_logits.cuda(), dec_targets.contiguous().view(-1).cuda())
-            eval_loss_total += float(step_loss.data[0])
+            eval_loss_total += float(step_loss.item())
             n_words_total += torch.sum(dec_inputs_len)
             n_sents_total += dec_inputs_len.size(0)
             print('  {} samples seen'.format(n_sents_total))
