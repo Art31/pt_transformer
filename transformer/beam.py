@@ -104,5 +104,5 @@ class Beam(object):
         for j in range(len(self.prev_ks)-1, -1, -1):
             hyp.append(self.next_ys[j + 1][k])
             k = self.prev_ks[j][k]
-
+        import ipdb; ipdb.set_trace()
         return hyp[::-1]
