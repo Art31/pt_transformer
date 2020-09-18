@@ -32,7 +32,7 @@ class ScaledDotProductAttention(nn.Module):
         scores = torch.matmul(q, k.transpose(-1, -2)) / self.scale_factor
         if attn_mask is not None:
             assert attn_mask.size() == scores.size()
-            scores.masked_fill_(attn_mask, -1e9)
+            scores.masked_fill_(attn_mask.cuda(), -1e9)
         attn = self.dropout(self.softmax(scores))
 
         # outputs: [b_size x n_heads x len_q x d_v]
