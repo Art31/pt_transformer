@@ -121,6 +121,7 @@ class Translator(object):
 
                 # select the active instances in batch
                 original_seq_data = seq_var.data.view(n_remaining_sents, -1)
+                import ipdb; ipdb.set_trace()
                 active_seq_data = original_seq_data.index_select(0, active_inst_idxs)
                 active_seq_data = active_seq_data.view(*new_size)
 
