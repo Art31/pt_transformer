@@ -49,6 +49,7 @@ class Translator(object):
             batch_size * beam_size, enc_outputs.size(1), enc_outputs.size(2))
 
         # Prepare beams
+        import ipdb; ipdb.set_trace()
         beams = [Beam(beam_size, self.use_cuda) for _ in range(batch_size)]
         beam_inst_idx_map = {
             beam_idx: inst_idx for inst_idx, beam_idx in enumerate(range(batch_size))
@@ -61,8 +62,7 @@ class Translator(object):
             # Preparing decoded data_seq
             # size: [batch_size x beam_size x seq_len]
             import ipdb; ipdb.set_trace()
-            dec_partial_inputs = torch.stack([
-                b.get_current_state() for b in beams if not b.done])
+            dec_partial_inputs = torch.stack([b.get_current_state() for b in beams if not b.done])
             # size: [batch_size * beam_size x seq_len]
             dec_partial_inputs = dec_partial_inputs.view(-1, len_dec_seq)
             # wrap into a Variable
