@@ -106,6 +106,7 @@ class Decoder(nn.Module):
 class Transformer(nn.Module):
     def __init__(self, opt):
         super(Transformer, self).__init__()
+        import ipdb; ipdb.set_trace()
         self.encoder = Encoder(opt.n_layers, opt.d_k, opt.d_v, opt.d_model, opt.d_ff, opt.n_heads,
                                opt.max_src_seq_len, opt.src_vocab_size, opt.dropout, opt.weighted_model)
         self.decoder = Decoder(opt.n_layers, opt.d_k, opt.d_v, opt.d_model, opt.d_ff, opt.n_heads,
