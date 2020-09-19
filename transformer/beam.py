@@ -84,7 +84,8 @@ class Beam(object):
         else:
             _, keys = self.sort_scores()
             hyps = [self.get_hypothesis(k) for k in keys]
-            hyps = [[data_utils.BOS] + h for h in hyps]
+            bos_tensor = torch.Tensor([data_utils.BOS])
+            hyps = [bos_tensor + h for h in hyps]
             import ipdb; ipdb.set_trace()
             dec_seq = torch.from_numpy(np.array(hyps))
             # dec_seq = hyps
